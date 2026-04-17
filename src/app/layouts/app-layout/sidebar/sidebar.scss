@@ -171,5 +171,17 @@
   display: flex;
   flex-direction: column;
   gap: 0.125rem;
-  margin-top: 0.125rem;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  margin-top: 0;
+  transition: max-height 0.2s ease, opacity 0.15s ease, margin-top 0.2s ease;
+
+  &.open {
+    max-height: 500px;
+    opacity: 1;
+    pointer-events: auto;
+    margin-top: 0.125rem;
+  }
 }

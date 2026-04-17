@@ -34,20 +34,18 @@
               <i class="pi pi-chevron-right chevron"></i>
             </button>
 
-            @if (isGroupOpen(item) && !state.isNarrow()) {
-              <div class="nav-children">
-                @for (child of item.children; track child.route) {
-                  <a
-                    [routerLink]="child.route"
-                    routerLinkActive="active"
-                    class="nav-item child"
-                  >
-                    <i [class]="child.icon"></i>
-                    <span class="nav-label">{{ child.label }}</span>
-                  </a>
-                }
-              </div>
-            }
+            <div class="nav-children" [class.open]="isGroupOpen(item) && !state.isNarrow()">
+              @for (child of item.children; track child.route) {
+                <a
+                  [routerLink]="child.route"
+                  routerLinkActive="active"
+                  class="nav-item child"
+                >
+                  <i [class]="child.icon"></i>
+                  <span class="nav-label">{{ child.label }}</span>
+                </a>
+              }
+            </div>
           } @else {
             <a
               [routerLink]="item.route"
