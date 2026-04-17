@@ -39,6 +39,7 @@
                 <a
                   [routerLink]="child.route"
                   routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
                   class="nav-item child"
                 >
                   <i [class]="child.icon"></i>

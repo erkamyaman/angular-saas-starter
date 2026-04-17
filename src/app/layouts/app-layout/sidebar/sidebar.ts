@@ -109,14 +109,19 @@ export class Sidebar {
   }
 
   private syncExpandedFromUrl(url: string): void {
+    const path = url.split(/[?#]/)[0];
     const open = new Set(this.expandedGroups());
     for (const section of this.sections) {
       for (const item of section.items) {
-        if (item.children?.some((c) => c.route && url.startsWith(c.route))) {
+        if (item.children?.some((c) => c.route && this.matchesRoute(path, c.route))) {
           open.add(item.label);
         }
       }
     }
     this.expandedGroups.set(open);
+  }
+
+  private matchesRoute(path: string, route: string): boolean {
+    return path === route || path.startsWith(route + '/');
   }
 }
