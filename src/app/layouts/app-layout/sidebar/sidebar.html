@@ -35,17 +35,19 @@
             </button>
 
             <div class="nav-children" [class.open]="isGroupOpen(item) && !state.isNarrow()">
-              @for (child of item.children; track child.route) {
-                <a
-                  [routerLink]="child.route"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  class="nav-item child"
-                >
-                  <i [class]="child.icon"></i>
-                  <span class="nav-label">{{ child.label }}</span>
-                </a>
-              }
+              <div class="nav-children-inner">
+                @for (child of item.children; track child.route) {
+                  <a
+                    [routerLink]="child.route"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    class="nav-item child"
+                  >
+                    <i [class]="child.icon"></i>
+                    <span class="nav-label">{{ child.label }}</span>
+                  </a>
+                }
+              </div>
             </div>
           } @else {
             <a
