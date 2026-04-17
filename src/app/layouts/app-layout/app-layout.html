@@ -1,0 +1,15 @@
+<div class="layout" [class.narrow]="sidebarState.isNarrow()">
+  <app-sidebar />
+
+  <div class="main">
+    <header class="topbar">
+      <div class="spacer"></div>
+      <p-button icon="pi pi-plus" severity="secondary" [text]="true" [rounded]="true" aria-label="Create" />
+      <p-button icon="pi pi-bell" severity="secondary" [text]="true" [rounded]="true" aria-label="Notifications" />
+      <p-button icon="pi pi-user" severity="secondary" [text]="true" [rounded]="true" aria-label="Account" />
+    </header>
+    <main class="content">
+      <router-outlet />
+    </main>
+  </div>
+</div>

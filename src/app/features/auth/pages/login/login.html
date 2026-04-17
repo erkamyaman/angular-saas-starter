@@ -1,0 +1,30 @@
+<p-card styleClass="login-card">
+  <ng-template pTemplate="header">
+    <div class="card-header">
+      <h1>Sign in</h1>
+      <p>Enter your credentials to continue.</p>
+    </div>
+  </ng-template>
+
+  <form class="form" (ngSubmit)="onSubmit()">
+    <label>
+      <span>Email</span>
+      <input pInputText type="email" name="email" [ngModel]="email()" (ngModelChange)="email.set($event)" required autocomplete="email" />
+    </label>
+
+    <label>
+      <span>Password</span>
+      <p-password
+        name="password"
+        [ngModel]="password()"
+        (ngModelChange)="password.set($event)"
+        [toggleMask]="true"
+        [feedback]="false"
+        [fluid]="true"
+        required
+      />
+    </label>
+
+    <p-button type="submit" label="Sign in" [fluid]="true" />
+  </form>
+</p-card>

@@ -1,0 +1,42 @@
+:host {
+  display: block;
+  height: 100dvh;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  height: 100%;
+  transition: grid-template-columns 0.2s ease;
+
+  &.narrow {
+    grid-template-columns: 64px 1fr;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--p-surface-200);
+  background: var(--p-surface-0);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+  padding: 1.5rem;
+  background: var(--p-surface-50);
+}
