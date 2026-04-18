@@ -16,6 +16,6 @@ export class Login {
   protected readonly password = signal('');
 
   protected onSubmit(): void {
-    console.log('login', { email: this.email(), password: this.password() });
+    // TODO: auth not wired yet — connect to auth service once it lands.
   }
 }
