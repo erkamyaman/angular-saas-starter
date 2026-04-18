@@ -1,2 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @use "primeicons/primeicons.css";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--p-surface-50);
+  color: var(--p-text-color);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

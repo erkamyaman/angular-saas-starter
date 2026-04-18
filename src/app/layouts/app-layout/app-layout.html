@@ -1,0 +1,49 @@
+<div
+  class="layout"
+  [class.floating]="!sidebarState.locked()"
+  [class.drawer-open]="sidebarState.mobileOpen()"
+>
+  <app-sidebar />
+
+  <div class="backdrop" (click)="sidebarState.closeMobile()"></div>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-brand">
+        <img src="logo.svg" alt="Logo" class="topbar-logo" />
+        <span class="topbar-name">Starter</span>
+      </div>
+      <div class="spacer"></div>
+
+      <div class="topbar-actions" [class.open]="actionsOpen()">
+        <p-button icon="pi pi-plus" severity="secondary" [text]="true" [rounded]="true" aria-label="Create" />
+        <p-button icon="pi pi-bell" severity="secondary" [text]="true" [rounded]="true" aria-label="Notifications" />
+        <p-button icon="pi pi-user" severity="secondary" [text]="true" [rounded]="true" aria-label="Account" />
+      </div>
+
+      <span class="menu-toggle" [class.active]="sidebarState.mobileOpen()">
+        <p-button
+          icon="pi pi-bars"
+          severity="secondary"
+          [text]="true"
+          [rounded]="true"
+          aria-label="Menu"
+          (onClick)="toggleMobile()"
+        />
+      </span>
+      <span class="actions-toggle" [class.active]="actionsOpen()">
+        <p-button
+          icon="pi pi-ellipsis-v"
+          severity="secondary"
+          [text]="true"
+          [rounded]="true"
+          aria-label="More actions"
+          (onClick)="toggleActions()"
+        />
+      </span>
+    </header>
+    <main class="content">
+      <router-outlet />
+    </main>
+  </div>
+</div>

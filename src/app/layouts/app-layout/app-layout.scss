@@ -1,0 +1,150 @@
+@use 'breakpoints' as *;
+
+:host {
+  display: block;
+  height: 100dvh;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  height: 100%;
+  transition: grid-template-columns 0.2s ease;
+
+  &.floating {
+    grid-template-columns: 64px 1fr;
+  }
+}
+
+.backdrop {
+  display: none;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--p-surface-200);
+  background: var(--p-surface-0);
+  position: relative;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.actions-toggle {
+  display: none;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.topbar-brand {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  font-size: 1.375rem;
+
+  .topbar-logo {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.menu-toggle {
+  display: none;
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+  padding: 1.5rem;
+  background: var(--p-surface-50);
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .layout,
+  .layout.floating {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar-brand {
+    display: inline-flex;
+  }
+
+  .menu-toggle,
+  .actions-toggle {
+    display: inline-flex;
+    border-radius: 50%;
+    transition: background 0.15s ease;
+
+    &.active {
+      background: var(--p-primary-color);
+
+      ::ng-deep .p-button {
+        color: var(--p-primary-contrast-color);
+
+        &:hover,
+        &:focus,
+        &:active {
+          background: transparent;
+          color: var(--p-primary-contrast-color);
+        }
+      }
+    }
+  }
+
+  .topbar-actions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--p-surface-0);
+    border-top: 1px solid var(--p-surface-200);
+    border-bottom: 1px solid var(--p-surface-200);
+    padding: 0.5rem 1rem;
+    justify-content: space-evenly;
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.2s ease, opacity 0.15s ease;
+    z-index: 25;
+
+    &.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  .backdrop {
+    display: block;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 20;
+  }
+
+  .layout.drawer-open .backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

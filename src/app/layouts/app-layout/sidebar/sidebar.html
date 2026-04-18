@@ -1,0 +1,68 @@
+<aside
+  class="sidebar"
+  [class.narrow]="state.isNarrow()"
+  [class.floating]="!state.locked()"
+  [class.mobile-open]="state.mobileOpen()"
+  (mouseenter)="state.setHovered(true)"
+  (mouseleave)="state.setHovered(false)"
+>
+  <div class="brand">
+    <img src="logo.svg" alt="Logo" class="brand-logo" />
+    <span class="brand-name">Starter</span>
+    <button
+      type="button"
+      class="sidebar-lock"
+      (click)="state.toggleLock()"
+      [attr.aria-label]="state.locked() ? 'Unlock sidebar' : 'Lock sidebar'"
+      [attr.tabindex]="state.isNarrow() ? -1 : 0"
+    >
+      <i [class]="state.locked() ? 'pi pi-lock' : 'pi pi-lock-open'"></i>
+    </button>
+  </div>
+
+  <nav class="nav">
+    @for (section of sections; track section.label) {
+      <div class="section">
+        @for (item of section.items; track item.label) {
+          @if (item.children) {
+            <button
+              type="button"
+              class="nav-item group-toggle"
+              [class.open]="isGroupOpen(item)"
+              (click)="toggleGroup(item)"
+            >
+              <i [class]="item.icon"></i>
+              <span class="nav-label">{{ item.label }}</span>
+              <i class="pi pi-chevron-right chevron"></i>
+            </button>
+
+            <div class="nav-children" [class.open]="isGroupOpen(item) && !state.isNarrow()">
+              <div class="nav-children-inner">
+                @for (child of item.children; track child.route) {
+                  <a
+                    [routerLink]="child.route"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    class="nav-item child"
+                  >
+                    <i [class]="child.icon"></i>
+                    <span class="nav-label">{{ child.label }}</span>
+                  </a>
+                }
+              </div>
+            </div>
+          } @else {
+            <a
+              [routerLink]="item.route"
+              routerLinkActive="active"
+              class="nav-item"
+            >
+              <i [class]="item.icon"></i>
+              <span class="nav-label">{{ item.label }}</span>
+            </a>
+          }
+        }
+      </div>
+    }
+  </nav>
+</aside>
