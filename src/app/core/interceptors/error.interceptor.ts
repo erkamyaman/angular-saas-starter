@@ -1,14 +1,19 @@
 import { HttpErrorResponse, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Observable, Subject, catchError, filter, switchMap, take, throwError } from 'rxjs';
+import { Observable, Subject, catchError, switchMap, take, throwError } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { SKIP_ERROR_TOAST } from './http-context';
 
 let refreshing = false;
 const refreshSubject = new Subject<string | null>();
 
-const REFRESH_URL = /\/auth\/refresh$/;
-const LOGIN_URL = /\/auth\/login$/;
+const SKIP_REFRESH = [
+  /\/auth\/refresh$/,
+  /\/auth\/login$/,
+  /\/auth\/logout$/,
+  /\/auth\/register$/,
+];
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const auth = inject(AuthService);
@@ -16,14 +21,20 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
-      if (err.status === 401 && !REFRESH_URL.test(req.url) && !LOGIN_URL.test(req.url)) {
+      if (err.status === 401 && !skipRefresh(req.url)) {
         return handle401(req, next, auth);
       }
-      surfaceError(err, toast);
+      if (!req.context.get(SKIP_ERROR_TOAST)) {
+        surfaceError(err, toast);
+      }
       return throwError(() => err);
     }),
   );
 };
+
+function skipRefresh(url: string): boolean {
+  return SKIP_REFRESH.some((re) => re.test(url));
+}
 
 function handle401(
   req: HttpRequest<unknown>,
@@ -32,9 +43,13 @@ function handle401(
 ): Observable<ReturnType<Parameters<HttpInterceptorFn>[1]> extends Observable<infer R> ? R : never> {
   if (refreshing) {
     return refreshSubject.pipe(
-      filter((t): t is string => t !== null),
       take(1),
-      switchMap((token) => next(retryWithToken(req, token))),
+      switchMap((token) => {
+        if (token === null) {
+          return throwError(() => new Error('Token refresh failed'));
+        }
+        return next(retryWithToken(req, token));
+      }),
     ) as never;
   }
 
