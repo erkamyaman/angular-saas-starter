@@ -19,6 +19,14 @@
         <p-button icon="pi pi-plus" severity="secondary" [text]="true" [rounded]="true" aria-label="Create" />
         <p-button icon="pi pi-bell" severity="secondary" [text]="true" [rounded]="true" aria-label="Notifications" />
         <p-button icon="pi pi-user" severity="secondary" [text]="true" [rounded]="true" aria-label="Account" />
+        <p-button
+          icon="pi pi-sign-out"
+          severity="secondary"
+          [text]="true"
+          [rounded]="true"
+          aria-label="Log out"
+          (onClick)="logout()"
+        />
       </div>
 
       <span class="menu-toggle" [class.active]="sidebarState.mobileOpen()">

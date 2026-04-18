@@ -1,0 +1,47 @@
+<p-card styleClass="register-card">
+  <ng-template pTemplate="header">
+    <div class="card-header">
+      <h1>Create account</h1>
+      <p>Enter your details to get started.</p>
+    </div>
+  </ng-template>
+
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <label>
+        <span>First name</span>
+        <input pInputText type="text" formControlName="firstName" autocomplete="given-name" />
+      </label>
+      <label>
+        <span>Last name</span>
+        <input pInputText type="text" formControlName="lastName" autocomplete="family-name" />
+      </label>
+    </div>
+
+    <label>
+      <span>Email</span>
+      <input pInputText type="email" formControlName="email" autocomplete="email" />
+    </label>
+
+    <label>
+      <span>Password</span>
+      <p-password
+        formControlName="password"
+        [toggleMask]="true"
+        [feedback]="false"
+        [fluid]="true"
+        autocomplete="new-password"
+      />
+    </label>
+
+    @if (error(); as err) {
+      <div class="form-error">{{ err }}</div>
+    }
+
+    <p-button type="submit" label="Create account" [fluid]="true" [loading]="submitting()" />
+
+    <p class="alt">
+      Already have an account? <a routerLink="/login">Sign in</a>
+    </p>
+  </form>
+</p-card>

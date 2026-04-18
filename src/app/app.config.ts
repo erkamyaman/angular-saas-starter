@@ -1,9 +1,22 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import {
+  ApplicationConfig,
+  provideAppInitializer,
+  provideBrowserGlobalErrorListeners,
+  provideZoneChangeDetection,
+  inject,
+} from '@angular/core';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import Material from '@primeuix/themes/material';
 import { definePreset } from '@primeuix/themes';
+import { firstValueFrom } from 'rxjs';
 
+import { AuthService } from './core/auth/auth.service';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { devMockInterceptor } from './core/interceptors/dev-mock.interceptor';
+import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { routes } from './app.routes';
 
 const AppPreset = definePreset(Material, {
@@ -28,7 +41,16 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withInMemoryScrolling({ scrollPositionRestoration: 'top', anchorScrolling: 'enabled' }),
+    ),
+    provideHttpClient(withInterceptors([authInterceptor, errorInterceptor, devMockInterceptor])),
+    MessageService,
+    provideAppInitializer(() => {
+      const auth = inject(AuthService);
+      return firstValueFrom(auth.loadCurrentUser()).catch(() => null);
+    }),
     providePrimeNG({
       theme: {
         preset: AppPreset,

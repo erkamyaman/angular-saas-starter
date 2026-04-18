@@ -1,10 +1,10 @@
 :host {
   display: block;
   width: 100%;
-  max-width: 400px;
+  max-width: 440px;
 }
 
-:host ::ng-deep .login-card {
+:host ::ng-deep .register-card {
   width: 100%;
 }
 
@@ -39,6 +39,12 @@
   input {
     width: 100%;
   }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
 .form-error {

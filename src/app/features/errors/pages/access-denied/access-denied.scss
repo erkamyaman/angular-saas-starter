@@ -1,0 +1,32 @@
+.access-denied {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.icon {
+  font-size: 3rem;
+  color: var(--p-text-muted-color);
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+p {
+  margin: 0;
+  color: var(--p-text-muted-color);
+  max-width: 420px;
+
+  code {
+    background: var(--p-surface-100);
+    padding: 0.125rem 0.375rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+  }
+}

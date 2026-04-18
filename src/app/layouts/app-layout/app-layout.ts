@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { AuthService } from '../../core/auth/auth.service';
 import { SidebarStateService } from './sidebar-state.service';
 import { Sidebar } from './sidebar/sidebar';
 
@@ -11,6 +12,7 @@ import { Sidebar } from './sidebar/sidebar';
   styleUrl: './app-layout.scss',
 })
 export class AppLayout {
+  private readonly auth = inject(AuthService);
   protected readonly sidebarState = inject(SidebarStateService);
   protected readonly actionsOpen = signal(false);
 
@@ -22,5 +24,9 @@ export class AppLayout {
   protected toggleMobile(): void {
     this.sidebarState.toggleMobile();
     this.actionsOpen.set(false);
+  }
+
+  protected logout(): void {
+    this.auth.signOut().subscribe();
   }
 }

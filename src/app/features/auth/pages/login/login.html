@@ -6,25 +6,31 @@
     </div>
   </ng-template>
 
-  <form class="form" (ngSubmit)="onSubmit()">
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <label>
       <span>Email</span>
-      <input pInputText type="email" name="email" [ngModel]="email()" (ngModelChange)="email.set($event)" required autocomplete="email" />
+      <input pInputText type="email" formControlName="email" autocomplete="email" />
     </label>
 
     <label>
       <span>Password</span>
       <p-password
-        name="password"
-        [ngModel]="password()"
-        (ngModelChange)="password.set($event)"
+        formControlName="password"
         [toggleMask]="true"
         [feedback]="false"
         [fluid]="true"
-        required
+        autocomplete="current-password"
       />
     </label>
 
-    <p-button type="submit" label="Sign in" [fluid]="true" />
+    @if (error(); as err) {
+      <div class="form-error">{{ err }}</div>
+    }
+
+    <p-button type="submit" label="Sign in" [fluid]="true" [loading]="submitting()" />
+
+    <p class="alt">
+      Don't have an account? <a routerLink="/register">Create one</a>
+    </p>
   </form>
 </p-card>

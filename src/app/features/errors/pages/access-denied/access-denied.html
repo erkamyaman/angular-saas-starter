@@ -1,0 +1,12 @@
+<div class="access-denied">
+  <i class="pi pi-lock icon"></i>
+  <h1>Access denied</h1>
+  <p>
+    You don't have permission to view this page.
+    @if (permission) {
+      <br />
+      <small>Required permission: <code>{{ permission }}</code></small>
+    }
+  </p>
+  <p-button label="Go to dashboard" icon="pi pi-home" routerLink="/dashboard" />
+</div>
