@@ -13,6 +13,7 @@ import Material from '@primeuix/themes/material';
 import { definePreset } from '@primeuix/themes';
 import { firstValueFrom } from 'rxjs';
 
+import { environment } from '../environments/environment';
 import { AuthService } from './core/auth/auth.service';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { devMockInterceptor } from './core/interceptors/dev-mock.interceptor';
@@ -45,7 +46,13 @@ export const appConfig: ApplicationConfig = {
       routes,
       withInMemoryScrolling({ scrollPositionRestoration: 'top', anchorScrolling: 'enabled' }),
     ),
-    provideHttpClient(withInterceptors([authInterceptor, errorInterceptor, devMockInterceptor])),
+    provideHttpClient(
+      withInterceptors([
+        authInterceptor,
+        errorInterceptor,
+        ...(environment.useMockApi ? [devMockInterceptor] : []),
+      ]),
+    ),
     MessageService,
     provideAppInitializer(() => {
       const auth = inject(AuthService);

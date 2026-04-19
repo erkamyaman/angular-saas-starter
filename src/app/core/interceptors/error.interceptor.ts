@@ -1,4 +1,10 @@
-import { HttpErrorResponse, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandlerFn,
+  HttpInterceptorFn,
+  HttpRequest,
+} from '@angular/common/http';
 import { inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Observable, Subject, catchError, switchMap, take, throwError } from 'rxjs';
@@ -38,9 +44,9 @@ function skipRefresh(url: string): boolean {
 
 function handle401(
   req: HttpRequest<unknown>,
-  next: Parameters<HttpInterceptorFn>[1],
+  next: HttpHandlerFn,
   auth: AuthService,
-): Observable<ReturnType<Parameters<HttpInterceptorFn>[1]> extends Observable<infer R> ? R : never> {
+): Observable<HttpEvent<unknown>> {
   if (refreshing) {
     return refreshSubject.pipe(
       take(1),
@@ -50,7 +56,7 @@ function handle401(
         }
         return next(retryWithToken(req, token));
       }),
-    ) as never;
+    );
   }
 
   refreshing = true;
@@ -63,10 +69,12 @@ function handle401(
     catchError((refreshErr) => {
       refreshing = false;
       refreshSubject.next(null);
-      auth.signOut().subscribe();
-      return throwError(() => refreshErr);
+      return auth.signOut().pipe(
+        catchError(() => throwError(() => refreshErr)),
+        switchMap(() => throwError(() => refreshErr)),
+      );
     }),
-  ) as never;
+  );
 }
 
 function retryWithToken(req: HttpRequest<unknown>, token: string): HttpRequest<unknown> {
