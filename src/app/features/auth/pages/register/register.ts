@@ -51,7 +51,7 @@ export class Register {
       next: () => this.router.navigateByUrl('/dashboard'),
       error: (err) => {
         this.submitting.set(false);
-        this.error.set(err?.error?.message ?? this.translate.instant('createFailed'));
+        this.error.set(err?.error?.message ?? this.translate.instant('create_failed'));
       },
       complete: () => this.submitting.set(false),
     });

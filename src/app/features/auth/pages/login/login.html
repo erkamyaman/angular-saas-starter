@@ -1,8 +1,8 @@
 <p-card styleClass="login-card">
   <ng-template pTemplate="header">
     <div class="card-header">
-      <h1>{{ 'signIn' | translate }}</h1>
-      <p>{{ 'signInSubtitle' | translate }}</p>
+      <h1>{{ 'sign_in' | translate }}</h1>
+      <p>{{ 'sign_in_subtitle' | translate }}</p>
     </div>
   </ng-template>
 
@@ -29,10 +29,10 @@
       <div class="form-error">{{ err }}</div>
     }
 
-    <p-button type="submit" [label]="'signIn' | translate" [fluid]="true" [loading]="submitting()" />
+    <p-button type="submit" [label]="'sign_in' | translate" [fluid]="true" [loading]="submitting()" />
 
     <p class="alt">
-      {{ 'noAccount' | translate }} <a routerLink="/register">{{ 'createOne' | translate }}</a>
+      {{ 'no_account' | translate }} <a routerLink="/register">{{ 'create_one' | translate }}</a>
     </p>
   </form>
 </p-card>

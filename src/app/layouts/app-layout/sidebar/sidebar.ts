@@ -46,7 +46,7 @@ export class Sidebar {
           label: 'projects',
           icon: 'pi pi-folder',
           children: [
-            { label: 'allProjects', icon: 'pi pi-list', route: '/projects' },
+            { label: 'all_projects', icon: 'pi pi-list', route: '/projects' },
             { label: 'archived', icon: 'pi pi-inbox', route: '/projects/archived' },
           ],
         },
@@ -54,7 +54,7 @@ export class Sidebar {
           label: 'users',
           icon: 'pi pi-users',
           children: [
-            { label: 'allUsers', icon: 'pi pi-list', route: '/users' },
+            { label: 'all_users', icon: 'pi pi-list', route: '/users' },
           ],
         },
       ],

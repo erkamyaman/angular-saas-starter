@@ -14,6 +14,6 @@ export class AppErrorHandler implements ErrorHandler {
             ? (error as { message: string }).message
             : undefined;
     const toast = this.injector.get(ToastService);
-    toast.error('unexpectedError', { detail });
+    toast.error('unexpected_error', { detail });
   }
 }

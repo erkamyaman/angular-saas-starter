@@ -34,15 +34,15 @@ export class UserFormDialog {
   protected readonly isEdit = computed(() => this.user() !== null);
 
   protected readonly roleOptions: { label: string; value: UserRole }[] = [
-    { label: 'roleAdmin', value: 'admin' },
-    { label: 'roleMember', value: 'member' },
-    { label: 'roleViewer', value: 'viewer' },
+    { label: 'role_admin', value: 'admin' },
+    { label: 'role_member', value: 'member' },
+    { label: 'role_viewer', value: 'viewer' },
   ];
 
   protected readonly statusOptions: { label: string; value: UserStatus }[] = [
-    { label: 'statusActive', value: 'active' },
-    { label: 'statusInvited', value: 'invited' },
-    { label: 'statusDisabled', value: 'disabled' },
+    { label: 'status_active', value: 'active' },
+    { label: 'status_invited', value: 'invited' },
+    { label: 'status_disabled', value: 'disabled' },
   ];
 
   protected readonly form = this.fb.nonNullable.group({

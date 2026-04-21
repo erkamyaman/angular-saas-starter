@@ -94,7 +94,7 @@ export const devMockInterceptor: HttpInterceptorFn = (req, next) => {
         { field: 'email', header: 'email', sortable: true },
         { field: 'role', header: 'role', sortable: true, width: '120px' },
         { field: 'status', header: 'status', sortable: true, width: '120px' },
-        { field: 'createdAt', header: 'createdAt', sortable: true, width: '160px' },
+        { field: 'createdAt', header: 'created_at', sortable: true, width: '160px' },
       ],
     });
   }

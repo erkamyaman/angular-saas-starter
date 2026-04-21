@@ -87,11 +87,11 @@ function surfaceError(err: HttpErrorResponse, toast: ToastService): void {
   const body = err.error as { message?: string } | null;
   const detail = body?.message ?? undefined;
 
-  let summaryKey = 'errorGeneric';
-  if (err.status === 403) summaryKey = 'errorForbidden';
-  else if (err.status === 429) summaryKey = 'errorTooManyRequests';
-  else if (err.status >= 500) summaryKey = 'errorServer';
-  else if (err.status === 0) summaryKey = 'errorNetwork';
+  let summaryKey = 'error_generic';
+  if (err.status === 403) summaryKey = 'error_forbidden';
+  else if (err.status === 429) summaryKey = 'error_too_many_requests';
+  else if (err.status >= 500) summaryKey = 'error_server';
+  else if (err.status === 0) summaryKey = 'error_network';
 
   toast.error(summaryKey, { detail });
 }

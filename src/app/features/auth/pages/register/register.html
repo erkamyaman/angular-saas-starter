@@ -1,20 +1,20 @@
 <p-card styleClass="register-card">
   <ng-template pTemplate="header">
     <div class="card-header">
-      <h1>{{ 'createAccount' | translate }}</h1>
-      <p>{{ 'registerSubtitle' | translate }}</p>
+      <h1>{{ 'create_account' | translate }}</h1>
+      <p>{{ 'register_subtitle' | translate }}</p>
     </div>
   </ng-template>
 
   <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="row">
       <label>
-        <span>{{ 'firstName' | translate }}</span>
+        <span>{{ 'first_name' | translate }}</span>
         <input pInputText type="text" formControlName="firstName" autocomplete="given-name" />
         <app-field-error [control]="form.get('firstName')" />
       </label>
       <label>
-        <span>{{ 'lastName' | translate }}</span>
+        <span>{{ 'last_name' | translate }}</span>
         <input pInputText type="text" formControlName="lastName" autocomplete="family-name" />
         <app-field-error [control]="form.get('lastName')" />
       </label>
@@ -42,10 +42,10 @@
       <div class="form-error">{{ err }}</div>
     }
 
-    <p-button type="submit" [label]="'createAccount' | translate" [fluid]="true" [loading]="submitting()" />
+    <p-button type="submit" [label]="'create_account' | translate" [fluid]="true" [loading]="submitting()" />
 
     <p class="alt">
-      {{ 'hasAccount' | translate }} <a routerLink="/login">{{ 'signIn' | translate }}</a>
+      {{ 'has_account' | translate }} <a routerLink="/login">{{ 'sign_in' | translate }}</a>
     </p>
   </form>
 </p-card>

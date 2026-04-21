@@ -1,20 +1,20 @@
 <p-dialog
   [(visible)]="visible"
-  [header]="'choose_language' | translate"
+  [header]="'choose_theme' | translate"
   [modal]="true"
   [dismissableMask]="true"
   appendTo="body"
-  [style]="{ width: '90vw', maxWidth: '360px' }"
+  [style]="{ width: '90vw', maxWidth: '400px' }"
 >
-  <div class="lang-list">
+  <div class="swatch-grid">
     @for (opt of options; track opt.code) {
       <button
         type="button"
-        class="lang-item"
+        class="swatch"
         [class.active]="opt.code === current()"
         (click)="select(opt.code)"
       >
-        <span class="flag">{{ opt.flag }}</span>
+        <span class="dot" [style.background]="opt.swatch"></span>
         <span class="label">{{ opt.label }}</span>
         @if (opt.code === current()) {
           <i class="pi pi-check"></i>

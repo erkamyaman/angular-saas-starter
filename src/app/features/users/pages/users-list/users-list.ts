@@ -11,7 +11,7 @@ import {
   DataTableLazyEvent,
 } from '../../../../shared/components/data-table/data-table';
 import { DataTableCell } from '../../../../shared/components/data-table/data-table-cell.directive';
-import { ManagedUser, UserRole, UserStatus, UserWritable } from '../../models/user.model';
+import { ManagedUser, UserStatus, UserWritable } from '../../models/user.model';
 import { UserListParams, UsersService } from '../../users.service';
 import { UserFormDialog } from '../../components/user-form-dialog/user-form-dialog';
 
@@ -97,7 +97,7 @@ export class UsersList {
       next: () => {
         this.saving.set(false);
         this.dialogOpen.set(false);
-        this.toast.success(editing ? 'userUpdated' : 'userCreated');
+        this.toast.success(editing ? 'user_updated' : 'user_created');
         this.fetch();
       },
       error: () => this.saving.set(false),
@@ -106,8 +106,8 @@ export class UsersList {
 
   protected confirmRemove(user: ManagedUser): void {
     this.confirm.danger({
-      header: 'deleteUser',
-      message: 'deleteUserConfirm',
+      header: 'delete_user',
+      message: 'delete_user_confirm',
       params: { name: `${user.firstName} ${user.lastName}` },
       accept: () => this.remove(user),
     });
@@ -116,7 +116,7 @@ export class UsersList {
   private remove(user: ManagedUser): void {
     this.users.remove(user.id).subscribe({
       next: () => {
-        this.toast.success('userDeleted');
+        this.toast.success('user_deleted');
         this.fetch();
       },
     });
@@ -127,13 +127,5 @@ export class UsersList {
     if (status === 'invited') return 'info';
     if (status === 'disabled') return 'danger';
     return 'warn';
-  }
-
-  protected roleKey(role: UserRole): string {
-    return role.charAt(0).toUpperCase() + role.slice(1);
-  }
-
-  protected statusKey(status: UserStatus): string {
-    return status.charAt(0).toUpperCase() + status.slice(1);
   }
 }

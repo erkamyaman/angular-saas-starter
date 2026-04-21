@@ -53,7 +53,7 @@ export class Login {
       },
       error: (err) => {
         this.submitting.set(false);
-        this.error.set(err?.error?.message ?? this.translate.instant('signInFailed'));
+        this.error.set(err?.error?.message ?? this.translate.instant('sign_in_failed'));
       },
       complete: () => this.submitting.set(false),
     });

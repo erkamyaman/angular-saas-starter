@@ -27,9 +27,10 @@
           aria-label="Account"
           (onClick)="userMenu.toggle($event)"
         />
-        <p-menu #userMenu [model]="userMenuItems()" [popup]="true" appendTo="body" />
-        <app-language-picker [(visible)]="languageDialogOpen" />
       </div>
+      <p-menu #userMenu [model]="userMenuItems()" [popup]="true" appendTo="body" />
+        <app-language-picker [(visible)]="languageDialogOpen" />
+        <app-theme-picker [(visible)]="themeDialogOpen" />
 
       <span class="menu-toggle" [class.active]="sidebarState.mobileOpen()">
         <p-button

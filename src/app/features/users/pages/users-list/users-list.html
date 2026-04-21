@@ -2,11 +2,11 @@
   <header class="page-header">
     <div>
       <h1>{{ 'users' | translate }}</h1>
-      <p>{{ 'usersSubtitle' | translate }}</p>
+      <p>{{ 'users_subtitle' | translate }}</p>
     </div>
     <p-button
       icon="pi pi-plus"
-      [label]="'createUser' | translate"
+      [label]="'create_user' | translate"
       (onClick)="openCreate()"
     />
   </header>
@@ -20,20 +20,20 @@
     [total]="total()"
     [rowsPerPage]="rowsPerPage"
     (lazyLoad)="onLazyLoad($event)"
-    [emptyTitle]="'noUsersYet' | translate"
-    [emptyDescription]="'noUsersDescription' | translate"
+    [emptyTitle]="'no_users_yet' | translate"
+    [emptyDescription]="'no_users_description' | translate"
   >
     <ng-template appCell="name" let-value let-row="row">
       <span class="user-name">{{ row['firstName'] }} {{ row['lastName'] }}</span>
     </ng-template>
 
     <ng-template appCell="role" let-value>
-      <p-tag [value]="'role' + roleKey(value) | translate" severity="secondary" />
+      <p-tag [value]="'role_' + value | translate" severity="secondary" />
     </ng-template>
 
     <ng-template appCell="status" let-value>
       <p-tag
-        [value]="'status' + statusKey(value) | translate"
+        [value]="'status_' + value | translate"
         [severity]="severityFor(value)"
       />
     </ng-template>

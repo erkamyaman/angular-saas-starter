@@ -9,12 +9,13 @@ import { MenuModule } from 'primeng/menu';
 import { AuthService } from '../../core/auth/auth.service';
 import { LanguageService } from '../../core/i18n/language.service';
 import { LanguagePicker } from '../../shared/components/language-picker/language-picker';
+import { ThemePicker } from '../../shared/components/theme-picker/theme-picker';
 import { SidebarStateService } from './sidebar-state.service';
 import { Sidebar } from './sidebar/sidebar';
 
 @Component({
   selector: 'app-app-layout',
-  imports: [RouterOutlet, ButtonModule, MenuModule, Sidebar, LanguagePicker],
+  imports: [RouterOutlet, ButtonModule, MenuModule, Sidebar, LanguagePicker, ThemePicker],
   templateUrl: './app-layout.html',
   styleUrl: './app-layout.scss',
 })
@@ -26,6 +27,7 @@ export class AppLayout {
   protected readonly sidebarState = inject(SidebarStateService);
   protected readonly actionsOpen = signal(false);
   protected readonly languageDialogOpen = signal(false);
+  protected readonly themeDialogOpen = signal(false);
   protected readonly ready = signal(false);
 
   constructor() {
@@ -45,8 +47,9 @@ export class AppLayout {
       { label: t('profile'), icon: 'pi pi-user', command: () => this.router.navigateByUrl('/settings/profile') },
       { label: t('settings'), icon: 'pi pi-cog', command: () => this.router.navigateByUrl('/settings') },
       { label: t('language'), icon: 'pi pi-globe', command: () => this.languageDialogOpen.set(true) },
+      { label: t('theme'), icon: 'pi pi-palette', command: () => this.themeDialogOpen.set(true) },
       { separator: true },
-      { label: t('signOut'), icon: 'pi pi-sign-out', command: () => this.logout() },
+      { label: t('sign_out'), icon: 'pi pi-sign-out', command: () => this.logout() },
     ];
   });
 

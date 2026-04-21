@@ -3,19 +3,20 @@
   [modal]="true"
   [draggable]="false"
   [resizable]="false"
-  [style]="{ width: '28rem' }"
-  [header]="(isEdit() ? 'editUser' : 'newUser') | translate"
+  appendTo="body"
+  [style]="{ width: '90vw', maxWidth: '28rem' }"
+  [header]="(isEdit() ? 'edit_user' : 'new_user') | translate"
 >
   <form class="user-form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="grid">
       <label>
-        <span>{{ 'firstName' | translate }}</span>
+        <span>{{ 'first_name' | translate }}</span>
         <input pInputText type="text" formControlName="firstName" />
         <app-field-error [control]="form.get('firstName')" />
       </label>
 
       <label>
-        <span>{{ 'lastName' | translate }}</span>
+        <span>{{ 'last_name' | translate }}</span>
         <input pInputText type="text" formControlName="lastName" />
         <app-field-error [control]="form.get('lastName')" />
       </label>
@@ -75,7 +76,7 @@
       />
       <p-button
         type="submit"
-        [label]="(isEdit() ? 'saveChanges' : 'create') | translate"
+        [label]="(isEdit() ? 'save_changes' : 'create') | translate"
         [loading]="saving()"
       />
     </div>

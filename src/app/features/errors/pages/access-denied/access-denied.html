@@ -1,12 +1,12 @@
 <div class="access-denied">
   <i class="pi pi-lock icon"></i>
-  <h1>{{ 'accessDeniedTitle' | translate }}</h1>
+  <h1>{{ 'access_denied_title' | translate }}</h1>
   <p>
-    {{ 'accessDeniedDesc' | translate }}
+    {{ 'access_denied_desc' | translate }}
     @if (permission) {
       <br />
-      <small>{{ 'requiredPermission' | translate }}: <code>{{ permission }}</code></small>
+      <small>{{ 'required_permission' | translate }}: <code>{{ permission }}</code></small>
     }
   </p>
-  <p-button [label]="'goToDashboard' | translate" icon="pi pi-home" routerLink="/dashboard" />
+  <p-button [label]="'go_to_dashboard' | translate" icon="pi pi-home" routerLink="/dashboard" />
 </div>
