@@ -1,7 +1,7 @@
 <p-table
   [value]="rows()"
   [loading]="loading()"
-  [dataKey]="rowTrackBy()"
+  [dataKey]="dataKey()"
   [rowHover]="true"
   [lazy]="lazy()"
   [paginator]="paginator()"
@@ -23,7 +23,7 @@
           <th [style.width]="col.width">{{ col.header | translate }}</th>
         }
       }
-      @if (actionsTemplate) {
+      @if (actionsTemplate()) {
         <th class="actions-col"></th>
       }
     </tr>
@@ -42,10 +42,10 @@
           }
         </td>
       }
-      @if (actionsTemplate) {
+      @if (actionsTemplate(); as tpl) {
         <td class="actions-col">
           <ng-container
-            *ngTemplateOutlet="actionsTemplate; context: { $implicit: row }"
+            *ngTemplateOutlet="tpl; context: { $implicit: row }"
           />
         </td>
       }

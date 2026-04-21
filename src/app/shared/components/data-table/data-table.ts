@@ -1,12 +1,11 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
-  ContentChild,
-  ContentChildren,
-  QueryList,
   TemplateRef,
   booleanAttribute,
   computed,
+  contentChild,
+  contentChildren,
   input,
   output,
 } from '@angular/core';
@@ -39,7 +38,7 @@ export class DataTable {
   readonly rows = input<Record<string, unknown>[]>([]);
   readonly columns = input.required<readonly DataTableColumn[]>();
   readonly loading = input(false, { transform: booleanAttribute });
-  readonly rowTrackBy = input<string>('id');
+  readonly dataKey = input<string>('id');
   readonly emptyIcon = input<string>('pi pi-inbox');
   readonly emptyTitle = input<string>('No data yet');
   readonly emptyDescription = input<string>('');
@@ -52,18 +51,23 @@ export class DataTable {
 
   readonly lazyLoad = output<DataTableLazyEvent>();
 
-  @ContentChild('actions', { read: TemplateRef })
-  protected actionsTemplate?: TemplateRef<{ $implicit: Record<string, unknown> }>;
+  protected readonly actionsTemplate = contentChild<TemplateRef<{ $implicit: Record<string, unknown> }>>('actions');
+  private readonly cellDirectives = contentChildren(DataTableCell);
 
-  @ContentChildren(DataTableCell)
-  protected cellDirectives!: QueryList<DataTableCell>;
+  private readonly cellMap = computed(() => {
+    const map = new Map<string, TemplateRef<unknown>>();
+    for (const d of this.cellDirectives()) {
+      map.set(d.appCell(), d.template);
+    }
+    return map;
+  });
 
   protected readonly totalColSpan = computed(
-    () => this.columns().length + (this.actionsTemplate ? 1 : 0),
+    () => this.columns().length + (this.actionsTemplate() ? 1 : 0),
   );
 
   protected cellTemplateFor(field: string): TemplateRef<unknown> | undefined {
-    return this.cellDirectives?.find((d) => d.appCell() === field)?.template;
+    return this.cellMap().get(field);
   }
 
   protected onLazy(e: TableLazyLoadEvent): void {
