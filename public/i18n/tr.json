@@ -58,6 +58,13 @@
   "deleteUserConfirm": "{{name}} silinsin mi? Bu işlem geri alınamaz.",
   "delete": "Sil",
   "cancel": "İptal",
+  "confirm": "Onayla",
   "saveChanges": "Değişiklikleri kaydet",
-  "create": "Oluştur"
+  "create": "Oluştur",
+  "unexpectedError": "Beklenmeyen hata",
+  "errorGeneric": "Hata",
+  "errorForbidden": "Yasak",
+  "errorTooManyRequests": "Çok fazla istek",
+  "errorServer": "Sunucu hatası",
+  "errorNetwork": "Ağ hatası"
 }

@@ -58,6 +58,13 @@
   "deleteUserConfirm": "Видалити {{name}}? Цю дію неможливо скасувати.",
   "delete": "Видалити",
   "cancel": "Скасувати",
+  "confirm": "Підтвердити",
   "saveChanges": "Зберегти зміни",
-  "create": "Створити"
+  "create": "Створити",
+  "unexpectedError": "Несподівана помилка",
+  "errorGeneric": "Помилка",
+  "errorForbidden": "Заборонено",
+  "errorTooManyRequests": "Забагато запитів",
+  "errorServer": "Помилка сервера",
+  "errorNetwork": "Помилка мережі"
 }

@@ -58,6 +58,13 @@
   "deleteUserConfirm": "¿Eliminar a {{name}}? Esta acción no se puede deshacer.",
   "delete": "Eliminar",
   "cancel": "Cancelar",
+  "confirm": "Confirmar",
   "saveChanges": "Guardar cambios",
-  "create": "Crear"
+  "create": "Crear",
+  "unexpectedError": "Error inesperado",
+  "errorGeneric": "Error",
+  "errorForbidden": "Prohibido",
+  "errorTooManyRequests": "Demasiadas solicitudes",
+  "errorServer": "Error del servidor",
+  "errorNetwork": "Error de red"
 }

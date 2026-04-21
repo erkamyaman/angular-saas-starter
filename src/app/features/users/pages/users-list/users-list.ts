@@ -1,9 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
+import { ConfirmService } from '../../../../core/services/confirm.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import {
   DataTable,
   DataTableColumn,
@@ -30,9 +31,8 @@ import { UserFormDialog } from '../../components/user-form-dialog/user-form-dial
 })
 export class UsersList {
   private readonly users = inject(UsersService);
-  private readonly confirm = inject(ConfirmationService);
-  private readonly toast = inject(MessageService);
-  private readonly translate = inject(TranslateService);
+  private readonly confirm = inject(ConfirmService);
+  private readonly toast = inject(ToastService);
 
   protected readonly rows = signal<ManagedUser[]>([]);
   protected readonly total = signal(0);
@@ -97,11 +97,7 @@ export class UsersList {
       next: () => {
         this.saving.set(false);
         this.dialogOpen.set(false);
-        this.toast.add({
-          severity: 'success',
-          summary: this.translate.instant(editing ? 'userUpdated' : 'userCreated'),
-          life: 3000,
-        });
+        this.toast.success(editing ? 'userUpdated' : 'userCreated');
         this.fetch();
       },
       error: () => this.saving.set(false),
@@ -109,15 +105,10 @@ export class UsersList {
   }
 
   protected confirmRemove(user: ManagedUser): void {
-    this.confirm.confirm({
-      header: this.translate.instant('deleteUser'),
-      message: this.translate.instant('deleteUserConfirm', {
-        name: `${user.firstName} ${user.lastName}`,
-      }),
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: this.translate.instant('delete'),
-      rejectLabel: this.translate.instant('cancel'),
-      acceptButtonProps: { severity: 'danger' },
+    this.confirm.danger({
+      header: 'deleteUser',
+      message: 'deleteUserConfirm',
+      params: { name: `${user.firstName} ${user.lastName}` },
       accept: () => this.remove(user),
     });
   }
@@ -125,11 +116,7 @@ export class UsersList {
   private remove(user: ManagedUser): void {
     this.users.remove(user.id).subscribe({
       next: () => {
-        this.toast.add({
-          severity: 'success',
-          summary: this.translate.instant('userDeleted'),
-          life: 3000,
-        });
+        this.toast.success('userDeleted');
         this.fetch();
       },
     });

@@ -6,9 +6,9 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { MessageService } from 'primeng/api';
 import { Observable, Subject, catchError, switchMap, take, throwError } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { ToastService } from '../services/toast.service';
 import { SKIP_ERROR_TOAST } from './http-context';
 
 let refreshing = false;
@@ -23,7 +23,7 @@ const SKIP_REFRESH = [
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const auth = inject(AuthService);
-  const toast = inject(MessageService);
+  const toast = inject(ToastService);
 
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
@@ -81,18 +81,15 @@ function retryWithToken(req: HttpRequest<unknown>, token: string): HttpRequest<u
   return req.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
 }
 
-function surfaceError(err: HttpErrorResponse, toast: MessageService): void {
+function surfaceError(err: HttpErrorResponse, toast: ToastService): void {
   const body = err.error as { message?: string } | null;
-  const fallback = err.status === 0
-    ? 'Network error — check your connection.'
-    : err.statusText || 'Request failed';
-  const detail = body?.message ?? fallback;
+  const detail = body?.message ?? undefined;
 
-  let summary = 'Error';
-  if (err.status === 403) summary = 'Forbidden';
-  else if (err.status === 429) summary = 'Too many requests';
-  else if (err.status >= 500) summary = 'Server error';
-  else if (err.status === 0) summary = 'Network';
+  let summaryKey = 'errorGeneric';
+  if (err.status === 403) summaryKey = 'errorForbidden';
+  else if (err.status === 429) summaryKey = 'errorTooManyRequests';
+  else if (err.status >= 500) summaryKey = 'errorServer';
+  else if (err.status === 0) summaryKey = 'errorNetwork';
 
-  toast.add({ severity: 'error', summary, detail, life: 5000 });
+  toast.error(summaryKey, { detail });
 }

@@ -58,6 +58,13 @@
   "deleteUserConfirm": "Delete {{name}}? This action cannot be undone.",
   "delete": "Delete",
   "cancel": "Cancel",
+  "confirm": "Confirm",
   "saveChanges": "Save changes",
-  "create": "Create"
+  "create": "Create",
+  "unexpectedError": "Unexpected error",
+  "errorGeneric": "Error",
+  "errorForbidden": "Forbidden",
+  "errorTooManyRequests": "Too many requests",
+  "errorServer": "Server error",
+  "errorNetwork": "Network error"
 }
