@@ -101,7 +101,7 @@ The expected request/response shapes live in `src/app/core/auth/auth.models.ts`.
 ### Run
 
 ```bash
-npm start
+ng serve
 ```
 
 The app serves at `http://localhost:4200` and reloads on changes.
@@ -109,7 +109,7 @@ The app serves at `http://localhost:4200` and reloads on changes.
 ### Build
 
 ```bash
-npm run build
+ng build
 ```
 
 Outputs production bundles to `dist/`.
@@ -117,10 +117,12 @@ Outputs production bundles to `dist/`.
 ### Test
 
 ```bash
-npm test
+ng test
 ```
 
 Runs the Vitest suite (auth service, guards, interceptors, user form).
+
+> The npm scripts (`npm start`, `npm run build`, `npm test`) wrap the same commands if you'd rather not install the Angular CLI globally.
 
 ## Adding a translated string
 
