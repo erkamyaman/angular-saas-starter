@@ -1,7 +1,7 @@
 import { Injectable, computed, effect, signal } from '@angular/core';
+import { MOBILE_QUERY } from '../../shared/constants';
 
 const SIDEBAR_LOCKED_KEY = 'app:sidebar-locked';
-const MOBILE_QUERY = '(max-width: 991px)';
 
 @Injectable({ providedIn: 'root' })
 export class SidebarStateService {
@@ -16,7 +16,7 @@ export class SidebarStateService {
       try {
         localStorage.setItem(SIDEBAR_LOCKED_KEY, String(this.locked()));
       } catch {
-        // localStorage unavailable — ignore
+        // localStorage unavailable \u2014 ignore
       }
     });
 
