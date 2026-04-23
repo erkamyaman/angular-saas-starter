@@ -1,9 +1,12 @@
 # Angular SaaS Starter
 
+> ⚠️ **Work in progress.** This starter is actively evolving and has known rough edges and open issues. It's usable today as a baseline, but expect breaking changes. **Contributions are warmly welcome** — feel free to open an issue or PR.
+
 A batteries-included starter for building modern SaaS dashboards on **Angular 21** and **PrimeNG 21**, with authentication, role-based permissions, theming, and i18n wired up out of the box.
 
 [![Angular](https://img.shields.io/badge/Angular-21-DD0031?logo=angular&logoColor=white)](https://angular.dev)
 [![PrimeNG](https://img.shields.io/badge/PrimeNG-21-007ACC)](https://primeng.org)
+[![Status](https://img.shields.io/badge/status-WIP-yellow)](https://github.com/erkamyaman/angular-saas-starter)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
