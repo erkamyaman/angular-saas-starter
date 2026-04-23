@@ -84,13 +84,19 @@ npm install
 
 ### Configure the API base URL
 
-Edit `src/environments/environment.ts` and point `apiUrl` at your backend. The auth service expects:
+Edit `src/environments/environment.ts` and point `apiUrl` at your backend.
 
-- `POST /auth/login`
-- `POST /auth/register`
-- `POST /auth/logout`
-- `POST /auth/refresh`
-- `GET  /auth/me`
+By default, `AuthService` (`src/app/core/auth/auth.service.ts`) calls these endpoints — rename them to match your API if needed:
+
+| Purpose          | Default endpoint   |
+| ---------------- | ------------------ |
+| Sign in          | `POST /auth/login` |
+| Sign up          | `POST /auth/register` |
+| Sign out         | `POST /auth/logout` |
+| Refresh tokens   | `POST /auth/refresh` |
+| Current user     | `GET  /auth/me`    |
+
+The expected request/response shapes live in `src/app/core/auth/auth.models.ts`.
 
 ### Run
 
